@@ -1,0 +1,117 @@
+
+Food Ordering Management System PHP & MySQL Project
+
+ 
+Summary of the System:
+
+There is a lot of scope online food ordering business and we can tap it to the max extent possible as everyone has access to an online ordering facility via the internet. Food business usually will have high demand and hence online business prospect for food ordering should be profitable.  We will provide an easily accessible interface wherein the customer can view and place the order easily.
+
+The customer can register initially with minimum details and will be allowed to check the menu items before ordering them, adding them to cart and submit the order. The system records the details in MySQL database so that it will be easy to retrieve later. The users of the system also include employee/admin who will handle info related to product addition and assigning vehicle for placed orders.
+
+
+Problem Statement:
+------------------
+The food business in restaurants is being carried out in the same fashion for so many decades. In the restaurants, when the customers visit, they will read the large menu cards which just has the name of the item and price. They have to decide in moments time and place the order just to wait in the queue for getting the ordered items on their table. Sometimes, the waiting time is so huge that the customers will actually lose interest in the item. Moreover, some customers will be in their office or busy to come physically to the restaurant and eat.
+
+To ease the process of ordering the items, giving a description of each item and getting the item on the table the online food ordering system is designed. Some of the common problems are listed below.
+
+The general problems faced while ordering food physically in a restaurant are listed below.
+ +--------------------------------------------------------------------------+
+ |   1-Viewing the complete description of the menu item before ordering.   |
+ |   2-Placing the order standing in a (queueطابور).                        |
+ |   3-Waiting for the customers turn to get the food.                      |
+ +--------------------------------------------------------------------------+
+These hurdles will be avoided by placing the order online
+Users of the System:
+
+The users of the system include the customers and the employees. The employees of the system are responsible for updating the menu items as well as the delivery of the item to a particular address. The customers will visit the website, check for the items available in the menu, order for one or more items in the menu. All the activities such as ordering items online, delivery of the items by employees, the vehicle used to deliver the items etc. will be recorded in the database for all the events.
+Users of the database:
+
+The top-level management who owns the food business will be using the database. They can try to infer details like
+
+    what is the most demanded item?
+    Which item is not ordered at all?
+    What amount of business is made on daily basis?
+    How the delivery of items is being carried out? etc.
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+The main entities identified in the system are listed below.
+
+
+    Employee [Attributes -> eid, name, phone, email, password] <=  userInAuth
+		Customer [Attributes -> cid, name, email, pwd, phno, address]
+    Orders [Attributes -> oid, pid,cid, odate, quantity, delivery status, vehicle]
+    Products [Attributes -> pid, name, description, price, file]
+    Vehicle [Attributes -> vid, status,vehicle_number]
+    Cart [Attributes -> id, cid, pid, qty, status]
+
+Logical Design:
+
+The identified entities along with the attributes in the system are listed in Section 1. The tables that are designed are given below.
+Customer Module:
+
+The customer table consists of below details migration1
+
+    cid {primary key} [type : int auto_increment] assigned for each unique customer.
+    name [type : varchar(30)] represents name of the customer
+    Email [type : varchar(30)] represents email of the customer
+    Pwd [type: varchar(30)] used for saving password of the customer
+    Phnno [type : int(11)] is used for saving phone number of customer
+    Address [type : text] used for saving the address of the customer
+
+This table is used to get the details of customers
+Employee Module:
+
+Employee table is used to save migration 2
+
+    eid {primary key} [type : int auto_increment] assigned for each unique employee.
+    name [type : varchar(30)] represents the name of the employee.
+    Phno [type : int(15)] is for saving phone number of employee
+    Email [type : varchar(32)] saves the email info of an employee
+    Password [type : varchar(32)] will save password of employee
+
+Orders Module:
+
+Order table used to save
+
+    oid { primary key } [type : int auto_increment] assigned for each order.
+    pid { foreign key references products: pid } .
+    Cid [foreign key references customer: cid]
+    Quantity [type : int (25) ] represents the quantity of the ordered product.
+    Odate [type : datetime] represents a timeframe of the products ordered by the customer
+    Quantity [type : int (11)] provides the quantity ordered by the customer
+    Delivery status [type : tinyint(1)] saves the delivery status whether delivered or pending
+    Vehicle [type : int(11)] helps in assigning vehicles. foreign key references: vehicles vid
+
+Products Module:
+
+Products tables used to save
+
+    pid {primary key} [type : int auto_ioncrement ] assigned for each product.
+    name [type : varchar(20)] represents the name of the product.
+    description [type :text] represents the description of the product.
+    Price [type : double(10,5)] saves the price of the product ordered
+    File [type : text] saves the image of product ordered
+
+Vehicle Module:
+
+Vehicle table used to save
+
+Vehicle [Attributes -> vid, vehicle number]
+
+    vid {primary key} [type : int auto_increment] assigned for each vehicle.
+    Status [type : int(11)]
+    Vehicle number [type: varchar(30)] saves the registration number of the vehicle assigned for delivery
+
+Cart Module:
+
+Cart table used to save
+
+Cart [Attributes -> id, cid, pid, qty, status]
+
+    Id {primary key} [type : int auto_increment] assigned for each cart
+    Cid foreign key references customer id from the customer table
+    Pid foreign key references products table
+    Qty saves all quantities related to products added in cart
+    The status will save delivery status
